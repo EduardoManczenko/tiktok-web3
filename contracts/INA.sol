@@ -98,7 +98,7 @@ contract INA is ERC20{
             //the way we make the function for buying with ETH and MATIC is the same as soon as we have the function that returns its price in usd
 
             ERC20 usdt = ERC20(usdtContract);
-            uint usdtPrice = 160000000000000000; // * totalSupply = $14.400.000 the price need to change for $0,1666667 to totalSupply = $15.000.003 or reform the price and the total supply so as not to break in periodic tithes
+            uint usdtPrice = 160000000000000000; // * private sale supply = $14.400.000 the price need to change for $0,1666667 to private sale supply = $15.000.003 or reform the price and the total supply so as not to break in periodic tithes
 
             uint usdtTransferAmount = _amountINA * usdtPrice;
             uint INATransferAmount = _amountINA * 10 ** 18;
