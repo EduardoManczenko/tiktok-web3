@@ -40,7 +40,7 @@ describe("INA", function(){
     }
 
     describe("Deployment", function(){
-        it("Verificar se os saldos da tokenomics esta correto",
+        it("Check if the Tokenomics balances are correct",
         async function(){
             const {
                 ina,
