@@ -22,9 +22,12 @@ describe("INA", function(){
         ] = await ethers.getSigners()
 
         const INA = await ethers.getContractFactory("INA")
-        const ina = await INA.deploy()
+        const USDT = await ethers.getContractFactory("USDT")
+        const usdt = await USDT.deploy()
+        const ina = await INA.deploy(usdt.address)
 
         return {
+            usdt,
             ina,
             owner,
             privateSaleBank,
@@ -43,6 +46,7 @@ describe("INA", function(){
         it("Check if the Tokenomics balances are correct",
         async function(){
             const {
+                usdt,
                 ina,
                 owner,
                 privateSaleBank,
@@ -91,6 +95,7 @@ describe("INA", function(){
 
                 //console.log(i ," ",arrWallets[i], ": ", balance)
             }
+            console.log(usdt.address, ina.address)
         })
 
        

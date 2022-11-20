@@ -2,12 +2,14 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/AggregatorV3Interface.sol";
+
+//only work in testnet/main
+// import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 contract USDT is ERC20{
     constructor()
     ERC20("USDT", "USDT"){
-        _mint(msg.sender, 10000 * 10 ** decimals());
+        _mint(msg.sender, 15000000 * 10 ** decimals());
     }
 }
 
@@ -30,8 +32,9 @@ contract INA is ERC20{
 
     address usdtContract;
 
-    AggregatorV3Interface internal priceFeedEthUsd;
-    AggregatorV3Interface internal priceFeedMaticUsd;
+    // Only work in testnet/main
+    // AggregatorV3Interface internal priceFeedEthUsd;
+    // AggregatorV3Interface internal priceFeedMaticUsd;
 
     constructor(address _usdtContract)
     ERC20("INANI token","INA"){
@@ -48,8 +51,9 @@ contract INA is ERC20{
 
         usdtContract = _usdtContract;
 
-        priceFeedEthUsd = AggregatorV3Interface(0x0715A7794a1dc8e42615F059dD6e406A6594651A);
-        priceFeedMaticUsd = AggregatorV3Interface(0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada);
+        //only work in testnet/main
+        // priceFeedEthUsd = AggregatorV3Interface(0x0715A7794a1dc8e42615F059dD6e406A6594651A);
+        // priceFeedMaticUsd = AggregatorV3Interface(0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada);
 
         _mint(privateSaleBank, 90000000 * 10 ** decimals());
         _mint(publicSaleBank, 150000000 * 10 ** decimals());
@@ -74,18 +78,19 @@ contract INA is ERC20{
     }
 
 
-    // ETH and Matic Price only work in mumbai Testnet, hardhat vm unable, and require change priceFeed address to work in mainnet and change the import for @chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol
+    //only work in Testnet/main
+    // ETH and Matic Price, hardhat vm unable, and require change priceFeed address to work in mainnet and change the import for @chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol
 
     //returns wei
-    function ethPriceUsd() internal view returns(int256) {
-        ( , int256 answer , , ,) = priceFeedEthUsd.latestRoundData();
-        return (answer * 10000000000);
-    }
+    // function ethPriceUsd() internal view returns(int256) {
+    //     ( , int256 answer , , ,) = priceFeedEthUsd.latestRoundData();
+    //     return (answer * 10000000000);
+    // }
 
-    function maticPriceUsd() internal view returns(int256){
-        ( , int256 answer, , ,) = priceFeedMaticUsd.latestRoundData();
-        return (answer * 10000000000);
-    }
+    // function maticPriceUsd() internal view returns(int256){
+    //     ( , int256 answer, , ,) = priceFeedMaticUsd.latestRoundData();
+    //     return (answer * 10000000000);
+    // }
 
 
     function privateSaleBuy(uint _amountINA, uint _paymentChoice)external sixMonthsOpen(){
