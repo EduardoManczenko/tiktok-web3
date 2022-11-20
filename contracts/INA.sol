@@ -3,12 +3,14 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
+import "@openzeppelin/contracts/token/ERC20/ERC20usdt.sol";
+
 //only work in testnet/main
 // import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
-contract USDT is ERC20{
+contract USDT is ERC20usdt{
     constructor()
-    ERC20("USDT", "USDT"){
+    ERC20usdt("USDT", "USDT"){
         _mint(msg.sender, 15000000 * 10 ** decimals());
     }
 }
@@ -27,7 +29,7 @@ contract INA is ERC20{
     address futuresDevelopment;
 
     address owner;
-    bool privateSaleControl = false;
+    bool privateSaleControl = true;
     
 
     address usdtContract;
@@ -73,7 +75,7 @@ contract INA is ERC20{
     }
 
     modifier sixMonthsOpen(){
-        require(block.timestamp <= block.timestamp + (30 * 6 * 1 days));
+        require(block.timestamp <= block.timestamp + (30 * 6 * 1 days), "aaaaaaaaaa");
         _;
     }
 
@@ -103,6 +105,8 @@ contract INA is ERC20{
             //the way we make the function for buying with ETH and MATIC is the same as soon as we have the function that returns its price in usd
 
             ERC20 usdt = ERC20(usdtContract);
+            ERC20 ina = ERC20(address(this));
+            
             uint usdtPrice = 160000000000000000; // * private sale supply = $14.400.000 the price need to change for $0,1666667 to private sale supply = $15.000.003 or reform the price and the total supply so as not to break in periodic tithes
 
             uint usdtTransferAmount = _amountINA * usdtPrice;
@@ -112,7 +116,8 @@ contract INA is ERC20{
             require(balanceOf(privateSaleBank) > 0, "ERROR: Sold off/finish");
     
             usdt.transferFrom(userAddress, privateSaleBank, usdtTransferAmount);
-            transferFrom(privateSaleBank, userAddress, INATransferAmount);
+            ina.transferFrom(privateSaleBank, userAddress, INATransferAmount);
+            
             
         }else if(_paymentChoice == 20){
             //OnlyWork in testNet cause function ethPrice dont work in hardhat vm
@@ -120,6 +125,8 @@ contract INA is ERC20{
             //OnlyWork in testNet cause function maticPrice dont work in hardhat vm
         }
     }
+
+  
 
     function privateSaleUnlock()external onlyOwner(){
         privateSaleControl = true;
@@ -134,6 +141,7 @@ contract INA is ERC20{
     function removeFromBlacklist(address _address)external onlyOwner(){
         blacklist[_address] = false;
     }
+
 
 }
 

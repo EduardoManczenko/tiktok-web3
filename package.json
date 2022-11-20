@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.6",
     "@nomiclabs/hardhat-ethers": "^2.2.1",
     "@openzeppelin/contracts": "^4.8.0",
     "chai": "^4.3.7",
