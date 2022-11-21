@@ -1,48 +1,9 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "C:\\Users\\Usuario\\Documents\\Nosferas\\Web3-repositorios\\Solidity-test-Vurse\\contracts\\INA.sol": {
-      "lastModificationDate": 1668951817931,
-      "contentHash": "8690a6890181f7f5e5af2895078be457",
-      "sourceName": "contracts/INA.sol",
-      "solcConfig": {
-        "version": "0.8.17",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        "@openzeppelin/contracts/token/ERC20/ERC20usdt.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "INA",
-        "USDT"
-      ]
-    },
     "C:\\Users\\Usuario\\Documents\\Nosferas\\Web3-repositorios\\Solidity-test-Vurse\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\ERC20.sol": {
-      "lastModificationDate": 1668970883271,
-      "contentHash": "2fc4b3fb8f4cee44f9f9e5dea66aae5d",
+      "lastModificationDate": 1668974202616,
+      "contentHash": "868dafcbb4cf9f9de60316ad31ac0878",
       "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
       "solcConfig": {
         "version": "0.8.17",
@@ -221,10 +182,10 @@
         "AggregatorV3Interface"
       ]
     },
-    "C:\\Users\\Usuario\\Documents\\Nosferas\\Web3-repositorios\\Solidity-test-Vurse\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\ERC20usdt.sol": {
-      "lastModificationDate": 1668947877785,
-      "contentHash": "84ddd2d9e7ead7e1c9d468073d1f1523",
-      "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20usdt.sol",
+    "C:\\Users\\Usuario\\Documents\\Nosferas\\Web3-repositorios\\Solidity-test-Vurse\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\ERC20Ina.sol": {
+      "lastModificationDate": 1668974196086,
+      "contentHash": "7017ad01f43acf587e8708ddc2d2f3b0",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20Ina.sol",
       "solcConfig": {
         "version": "0.8.17",
         "settings": {
@@ -257,7 +218,49 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "ERC20usdt"
+        "ERC20Ina"
+      ]
+    },
+    "C:\\Users\\Usuario\\Documents\\Nosferas\\Web3-repositorios\\Solidity-test-Vurse\\contracts\\INAHardhat.sol": {
+      "lastModificationDate": 1669009457061,
+      "contentHash": "f5647d54a6adc8070e0d38865653a1de",
+      "sourceName": "contracts/INAHardhat.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20Ina.sol",
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "INA",
+        "USDT",
+        "accountFactory",
+        "publication",
+        "userAccount"
       ]
     }
   }

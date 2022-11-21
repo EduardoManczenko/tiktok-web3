@@ -1,23 +1,21 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
-import "@openzeppelin/contracts/token/ERC20/ERC20usdt.sol";
+import "./ERC20Ina.sol";
+import "./ERC20.sol";
 
 //only work in testnet/main
-// import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
-contract USDT is ERC20usdt{
+contract TOKEN is ERC20{
+
     constructor()
-    ERC20usdt("USDT", "USDT"){
-        _mint(msg.sender, 15000000 * 10 ** decimals());
-    }
+    ERC20("WETH","WETH"){
+        _mint(msg.sender, 100000 * 10 ** decimals());
+    }    
 }
 
-
-
-contract INA is ERC20{
+contract INAtestnet is ERC20Ina{
     address privateSaleBank;
     address publicSaleBank;
     address vurseIncentivizing;
@@ -33,29 +31,33 @@ contract INA is ERC20{
     
 
     address usdtContract;
+    address maticContract;
+    address wEthContract;
 
     // Only work in testnet/main
-    // AggregatorV3Interface internal priceFeedEthUsd;
-    // AggregatorV3Interface internal priceFeedMaticUsd;
+    AggregatorV3Interface internal priceFeedEthUsd;
+    AggregatorV3Interface internal priceFeedMaticUsd;
 
-    constructor(address _usdtContract)
-    ERC20("INANI token","INA"){
+    constructor()
+    ERC20Ina("INANI token","INA"){
         owner = msg.sender;
-        privateSaleBank = 0x70997970C51812dc3A010C7d01b50e0d17dc79C8;
-        publicSaleBank = 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC;
-        vurseIncentivizing = 0x90F79bf6EB2c4f870365E785982E1f101E93b906;
-        marketingPartnership = 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65;
-        founderTeam = 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc;
-        advisers = 0x976EA74026E726554dB657fA54763abd0C3a0aa9;
-        companyReserves = 0x14dC79964da2C08b23698B3D3cc7Ca32193d9955;
-        lpReward = 0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f;
-        futuresDevelopment = 0xa0Ee7A142d267C1f36714E4a8F75612F20a79720;
+        privateSaleBank = 0x4804C4C73faD55C28339E235F72b589e612783D3;
+        publicSaleBank = 0x8d08C957b80c0f96a4b2a8c610A8a28Bc4255b6c;
+        vurseIncentivizing = 0xCF45Ad8A84A2656817F6382DA029d2F0D963bcD9;
+        marketingPartnership = 0xa198776F5229cCe2b6c47434353448648F662f4A;
+        founderTeam = 0x4722264291289897a9ff5238A24e9D81829C94e3;
+        advisers = 0xDbB3FC2EabcbC523cE405477fd9E4457D29346eB;
+        companyReserves = 0x5b509a0f4Fef1Dd0C8045A6BFD3ebE06af2C7d6F;
+        lpReward = 0xD04faC47C428Ca574F8219eFCE20CF5F41740Bad;
+        futuresDevelopment = 0x25A3cf27e208FCd3Ef32d831Be8A61406b0c2cD5;
 
-        usdtContract = _usdtContract;
+        usdtContract = 0xA02f6adc7926efeBBd59Fd43A84f4E0c0c91e832;
+        maticContract = 0x0000000000000000000000000000000000001010;
+        wEthContract = 0xA443C946fE0C620d1Ac754f2e892089B22d06a3D;
 
         //only work in testnet/main
-        // priceFeedEthUsd = AggregatorV3Interface(0x0715A7794a1dc8e42615F059dD6e406A6594651A);
-        // priceFeedMaticUsd = AggregatorV3Interface(0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada);
+        priceFeedEthUsd = AggregatorV3Interface(0x0715A7794a1dc8e42615F059dD6e406A6594651A);
+        priceFeedMaticUsd = AggregatorV3Interface(0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada);
 
         _mint(privateSaleBank, 90000000 * 10 ** decimals());
         _mint(publicSaleBank, 150000000 * 10 ** decimals());
@@ -84,15 +86,15 @@ contract INA is ERC20{
     // ETH and Matic Price, hardhat vm unable, and require change priceFeed address to work in mainnet and change the import for @chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol
 
     //returns wei
-    // function ethPriceUsd() internal view returns(int256) {
-    //     ( , int256 answer , , ,) = priceFeedEthUsd.latestRoundData();
-    //     return (answer * 10000000000);
-    // }
+    function ethPriceUsd() public view returns(int256) {
+        ( , int256 answer , , ,) = priceFeedEthUsd.latestRoundData();
+        return (answer * 10000000000);
+    }
 
-    // function maticPriceUsd() internal view returns(int256){
-    //     ( , int256 answer, , ,) = priceFeedMaticUsd.latestRoundData();
-    //     return (answer * 10000000000);
-    // }
+    function maticPriceUsd() public view returns(int256){
+        ( , int256 answer, , ,) = priceFeedMaticUsd.latestRoundData();
+        return (answer * 10000000000);
+    }
 
 
     function privateSaleBuy(uint _amountINA, uint _paymentChoice)external sixMonthsOpen(){
@@ -106,7 +108,7 @@ contract INA is ERC20{
 
             ERC20 usdt = ERC20(usdtContract);
             ERC20 ina = ERC20(address(this));
-            
+
             uint usdtPrice = 160000000000000000; // * private sale supply = $14.400.000 the price need to change for $0,1666667 to private sale supply = $15.000.003 or reform the price and the total supply so as not to break in periodic tithes
 
             uint usdtTransferAmount = _amountINA * usdtPrice;
@@ -121,8 +123,40 @@ contract INA is ERC20{
             
         }else if(_paymentChoice == 20){
             //OnlyWork in testNet cause function ethPrice dont work in hardhat vm
+
+            ERC20 wEth = ERC20(wEthContract);
+            ERC20 ina = ERC20(address(this));
+
+            uint ethPriceDolar = uint(ethPriceUsd());
+            uint usdtPrice = 160000000000000000;
+
+            uint ethTransferAmount = ((usdtPrice * 10 ** 18) / ethPriceDolar) * _amountINA;
+
+            uint INATransferAmount =  _amountINA * 10 ** 18;
+
+            require(wEth.balanceOf(userAddress) >= ethTransferAmount, "ERROR: No balance usdt");
+            require(balanceOf(privateSaleBank) > 0, "ERROR: Sold off/finish");
+
+            wEth.transferFrom(userAddress, privateSaleBank, ethTransferAmount);
+            ina.transferFrom(privateSaleBank, userAddress, INATransferAmount);
+
         }else if(_paymentChoice == 30){
             //OnlyWork in testNet cause function maticPrice dont work in hardhat vm
+
+            ERC20 matic = ERC20(maticContract);
+            ERC20 ina = ERC20(address(this));
+
+            uint maticPriceDolar = uint(maticPriceUsd());
+            uint usdtPrice = 160000000000000000;
+
+            uint maticTransferAmount = ((usdtPrice * 10 ** 18) / maticPriceDolar) * _amountINA;
+            uint INATransferAmount =  _amountINA * 10 ** 18;
+
+            require(matic.balanceOf(userAddress) >= maticTransferAmount, "ERROR: No balance usdt");
+            require(balanceOf(privateSaleBank) > 0, "ERROR: Sold off/finish");
+
+            matic.transferFrom(userAddress, privateSaleBank, maticTransferAmount);
+            ina.transferFrom(privateSaleBank, userAddress, INATransferAmount);
         }
     }
 
@@ -141,8 +175,4 @@ contract INA is ERC20{
     function removeFromBlacklist(address _address)external onlyOwner(){
         blacklist[_address] = false;
     }
-
-
 }
-
-

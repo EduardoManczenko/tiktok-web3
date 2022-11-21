@@ -165,8 +165,6 @@ describe("INA", function(){
         it("Check total raised in private sale = $14,400,000 ~ $0.16 per token", async function (){
             const { ina, usdt, owner, privateSaleBank, user1} = await loadFixture(deploy)
             
-
-
             await usdt.connect(owner).approve(ina.address, "15000000000000000000000000")
   
             await ina.connect(owner).privateSaleBuy("90000000", "10")
