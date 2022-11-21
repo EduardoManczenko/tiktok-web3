@@ -222,8 +222,8 @@
       ]
     },
     "C:\\Users\\Usuario\\Documents\\Nosferas\\Web3-repositorios\\Solidity-test-Vurse\\contracts\\INAHardhat.sol": {
-      "lastModificationDate": 1669015112134,
-      "contentHash": "45619b15cb28f2867a8301f575a4ea2e",
+      "lastModificationDate": 1669016888583,
+      "contentHash": "7501507e18ebfc022093fcafe0594ff4",
       "sourceName": "contracts/INAHardhat.sol",
       "solcConfig": {
         "version": "0.8.17",

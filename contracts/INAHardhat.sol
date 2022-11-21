@@ -148,8 +148,8 @@ contract accountFactory{
     userAccount[] allAccounts;
 
     function create(address owner_, string memory userName_, string memory userSymbol_)public{
-        userAccount tx = new userAccount(owner_, userName_, userSymbol_);
-        allAccounts.push(tx);
+        userAccount txx = new userAccount(owner_, userName_, userSymbol_);
+        allAccounts.push(txx);
     }
 
     function returnAllAccounts()external view returns(userAccount[] memory){
@@ -218,8 +218,8 @@ contract userAccount is ERC20{
     }
 
     function createPublication(string memory description_, string memory video_)external onlyOwner(){
-        publication tx = new publication(description_, video_, address(this));
-        publicationsAddress.push(tx);
+        publication txx = new publication(description_, video_, address(this));
+        publicationsAddress.push(txx);
         totalPublications +=1;
     }
 
@@ -241,9 +241,9 @@ contract userAccount is ERC20{
         uint256 newTotalLikes = 0;
         uint256 newTotalComments = 0;
         for(uint i = 0; i <= publicationsAddress.length; i++){
-            publication tx = publication(publicationsAddress[i]);
-            uint txLikes = tx.returnTotaLike();
-            uint txComments = tx.returnTotalComments();
+            publication txx = publication(publicationsAddress[i]);
+            uint txLikes = txx.returnTotaLike();
+            uint txComments = txx.returnTotalComments();
             newTotalLikes += txLikes;
             newTotalComments += txComments;
         }
@@ -274,7 +274,7 @@ contract publication{
     }
     
 
-    function returnPublication()public returns(string memory, string memory){
+    function returnPublication()public view returns(string memory, string memory){
         return (_description, _video);
     }
 
