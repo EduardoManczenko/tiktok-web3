@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20Ina.sol";
+import "./@openzeppelin/contracts/token/ERC20/ERC20Ina.sol";
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "./@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 //only work in testnet/main
 // import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
@@ -74,7 +74,7 @@ contract INA is ERC20Ina{
     }
 
     modifier sixMonthsOpen(){
-        require(block.timestamp <= block.timestamp + (30 * 6 * 1 days), "aaaaaaaaaa");
+        require(block.timestamp <= block.timestamp + (30 * 6 * 1 days), "ERROR: Closed private sale");
         _;
     }
 
@@ -195,6 +195,7 @@ contract userAccount is ERC20{
         ERC20Ina ina = ERC20Ina(inaAddress);
         ERC20 userToken = ERC20(address(this));
 
+      
         uint256 price = calcStockValue();
 
         uint256 amountIna = _amount * price;

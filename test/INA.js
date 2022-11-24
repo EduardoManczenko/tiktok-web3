@@ -251,6 +251,5 @@ describe("INA", function(){
             const { ina, user1 } = await loadFixture(deploy)
             await expect(ina.connect(user1).privateSaleLock()).to.be.revertedWith("ERROR: You're not the owner")
         })
-
     })
 })
